@@ -223,5 +223,5 @@ func generateHandler[Req, Res any](signSecret, requestSign string, request Req, 
 		}
 	}
 
-	return response
+	return response.WithData(response.Data)
 }
