@@ -17,7 +17,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	luksdk "github.com/kerylan98/server-golang-sdk"
+	luksdk "github.com/CFGameTech/project-luksdk-golang"
 )
 
 func main() {
