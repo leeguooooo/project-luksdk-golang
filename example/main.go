@@ -1,7 +1,7 @@
 package main
 
 import (
-	luksdk "github.com/CFGameTech/project-luksdk-go"
+	luksdk "github.com/CFGameTech/project-luksdk-golang"
 	"github.com/gin-gonic/gin"
 	"log/slog"
 )

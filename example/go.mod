@@ -2,7 +2,7 @@ module example
 
 go 1.23.2
 
-require github.com/CFGameTech/project-luksdk-go v1.0.0
+require github.com/CFGameTech/project-luksdk-golang v1.0.0
 
 require (
 	github.com/bytedance/sonic v1.12.3 // indirect
@@ -34,4 +34,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/CFGameTech/project-luksdk-go v1.0.0 => ../
+replace github.com/CFGameTech/project-luksdk-golang v1.0.0 => ../
