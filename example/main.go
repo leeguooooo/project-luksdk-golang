@@ -1,33 +1,38 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	luksdk "github.com/kercylan98/server-golang-sdk"
+	luksdk "github.com/CFGameTech/project-luksdk-go"
+	"github.com/gin-gonic/gin"
+	"log/slog"
 )
 
 func main() {
-	// 初始化 SDK
-	sdk := luksdk.New("123456")
+	sdk := luksdk.New("@")
+	app := gin.New()
+	defer func() {
+		if err := app.Run(":8080"); err != nil {
+			panic(err)
+		}
+	}()
 
-	// 来自 SDK 请求的参数结构
-	request := &luksdk.GetChannelTokenRequest{
-		CId:       1000,
-		CUid:      "123456789",
-		Timestamp: 167456789,
-	}
-	request.Sign = sdk.GenerateSignature(request)
+	app.POST("/go/get_channel_token", func(context *gin.Context) {
+		var request = new(luksdk.GetChannelTokenRequest)
+		var response = new(luksdk.Response[*luksdk.GetChannelTokenResponse])
+		if err := context.ShouldBind(request); err != nil {
+			context.JSON(400, response.WithError(err))
+			slog.Info("get_channel_token", "request", request, "response", response)
+			return
+		}
 
-	// 处理请求
-	resp := sdk.GetChannelToken(request, func(request *luksdk.GetChannelTokenRequest) (*luksdk.GetChannelTokenResponse, error) {
-		// 业务逻辑
-		return &luksdk.GetChannelTokenResponse{
-			Token:    "token", // 生成 Token
-			LeftTime: 7200,    // 设置 Token 过期时间
-		}, nil
+		response = sdk.GetChannelToken(request, func(request *luksdk.GetChannelTokenRequest) (*luksdk.GetChannelTokenResponse, error) {
+			resp := &luksdk.GetChannelTokenResponse{
+				Token:    "my-token",
+				LeftTime: 7200,
+			}
+			return resp, nil
+		})
+
+		context.JSON(200, response)
+		slog.Info("get_channel_token", "request", request, "response", response)
 	})
-
-	// 将 resp 作为 JSON 写入 HTTP 响应
-	b, _ := json.Marshal(resp)
-	fmt.Println(string(b))
 }
