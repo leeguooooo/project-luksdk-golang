@@ -7,7 +7,7 @@
 可通过以下方式引入依赖
 
 ```shell
-go get -u github.com/CFGameTech/project-luksdk-go
+go get -u github.com/CFGameTech/project-luksdk-golang
 ```
 
 # 示例代码
