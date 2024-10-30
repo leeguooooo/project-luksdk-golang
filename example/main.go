@@ -81,7 +81,7 @@ func main() {
 	})
 
 	app.POST("/sdk/create_channel_order", func(context *gin.Context) {
-		var request = new(luksdk.CreateChannelOrderRequest)
+		var request = new(luksdk.CreateChannelOrderRequest),
 		var response = new(luksdk.Response[luksdk.CreateChannelOrderResponse])
 		if err := context.ShouldBind(request); err != nil {
 			context.JSON(400, response.WithError(err))
@@ -129,6 +129,7 @@ func main() {
 		})
 
 		context.JSON(200, response)
+		slog.Info("notify_channel_order", "request", request, "response", response)
 	})
 
 	app.POST("/sdk/notify_game", func(context *gin.Context) {
@@ -143,5 +144,8 @@ func main() {
 		response = sdk.NotifyGame(request, func(request *luksdk.NotifyGameRequest) (*luksdk.NotifyGameResponse, error) {
 			return new(luksdk.NotifyGameResponse), nil
 		})
+
+		context.JSON(200, response)
+		slog.Info("notify_game", "request", request, "response", response)
 	})
 }
