@@ -63,12 +63,17 @@ func castToSignatureParams(obj any) map[string]string {
 		// 遍历结构体字段
 		for i := 0; i < value.NumField(); i++ {
 			field := value.Field(i)
-			jsonTag := value.Type().Field(i).Tag.Get("json")
-			tagName := strings.Split(jsonTag, ",")[0]
+			switch field.Kind() {
+			case reflect.Map, reflect.Pointer, reflect.Slice, reflect.Chan, reflect.Func, reflect.Interface, reflect.Array, reflect.Struct, reflect.UnsafePointer, reflect.Complex128, reflect.Complex64:
+				continue
+			default:
+				jsonTag := value.Type().Field(i).Tag.Get("json")
+				tagName := strings.Split(jsonTag, ",")[0]
 
-			// 跳过 "sign" 字段和空字段
-			if tagName != "sign" && !field.IsZero() {
-				result[tagName] = fmt.Sprint(field.Interface())
+				// 跳过 "sign" 字段和空字段
+				if tagName != "sign" && !field.IsZero() {
+					result[tagName] = fmt.Sprint(field.Interface())
+				}
 			}
 		}
 	}

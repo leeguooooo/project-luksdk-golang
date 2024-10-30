@@ -69,8 +69,10 @@ type GetChannelUserInfoResponse struct {
 }
 
 type CreateChannelOrderRequest struct {
-	Sign string                            `json:"sign" form:"sign" uri:"sign" xml:"sign"` // 加密签名
-	Data []*CreateChannelOrderRequestEntry `json:"data" form:"data" uri:"data" xml:"data"` // 订单条目
+	Sign      string                            `json:"sign" form:"sign" uri:"sign" xml:"sign"`                     // 加密签名
+	Timestamp int64                             `json:"timestamp" form:"timestamp" uri:"timestamp" xml:"timestamp"` // 时间戳
+	Nonce     string                            `json:"nonce" form:"nonce" uri:"nonce" xml:"nonce"`                 // 随机字符串
+	Data      []*CreateChannelOrderRequestEntry `json:"data" form:"data" uri:"data" xml:"data"`                     // 订单条目
 }
 
 type CreateChannelOrderRequestEntry struct {
@@ -95,8 +97,10 @@ type CreateChannelOrderResponseEntry struct {
 }
 
 type NotifyChannelOrderRequest struct {
-	Sign string                            `json:"sign" form:"sign" uri:"sign" xml:"sign"` // 加密签名
-	Data []*NotifyChannelOrderRequestEntry `json:"data" form:"data" uri:"data" xml:"data"`
+	Sign      string                            `json:"sign" form:"sign" uri:"sign" xml:"sign"`                     // 加密签名
+	Timestamp int64                             `json:"timestamp" form:"timestamp" uri:"timestamp" xml:"timestamp"` // 时间戳
+	Nonce     string                            `json:"nonce" form:"nonce" uri:"nonce" xml:"nonce"`                 // 随机字符串
+	Data      []*NotifyChannelOrderRequestEntry `json:"data" form:"data" uri:"data" xml:"data"`
 }
 
 type NotifyChannelOrderRequestEntry struct {
