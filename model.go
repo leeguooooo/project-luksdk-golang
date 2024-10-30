@@ -53,6 +53,7 @@ type RefreshChannelTokenResponse struct {
 }
 
 type GetChannelUserInfoRequest struct {
+	GId       int    `json:"g_id" form:"g_id" uri:"g_id" xml:"g_id"`                     // 游戏ID
 	CId       int    `json:"c_id" form:"c_id" uri:"c_id" xml:"c_id"`                     // 渠道ID
 	CUid      string `json:"c_uid" form:"c_uid" uri:"c_uid" xml:"c_uid"`                 // 渠道用户id
 	Token     string `json:"token" form:"token" uri:"token" xml:"token"`                 // 用户token
