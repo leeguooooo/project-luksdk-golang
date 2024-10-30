@@ -53,10 +53,11 @@ type RefreshChannelTokenResponse struct {
 }
 
 type GetChannelUserInfoRequest struct {
-	CId   int    `json:"c_id" form:"c_id" uri:"c_id" xml:"c_id"`     // 渠道ID
-	CUid  string `json:"c_uid" form:"c_uid" uri:"c_uid" xml:"c_uid"` // 渠道用户id
-	Token string `json:"token" form:"token" uri:"token" xml:"token"` // 用户token
-	Sign  string `json:"sign" form:"sign" uri:"sign" xml:"sign"`     // 加密签名
+	CId       int    `json:"c_id" form:"c_id" uri:"c_id" xml:"c_id"`                     // 渠道ID
+	CUid      string `json:"c_uid" form:"c_uid" uri:"c_uid" xml:"c_uid"`                 // 渠道用户id
+	Token     string `json:"token" form:"token" uri:"token" xml:"token"`                 // 用户token
+	Timestamp int64  `json:"timestamp" form:"timestamp" uri:"timestamp" xml:"timestamp"` // 时间戳
+	Sign      string `json:"sign" form:"sign" uri:"sign" xml:"sign"`                     // 加密签名
 }
 
 type GetChannelUserInfoResponse struct {
