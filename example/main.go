@@ -81,7 +81,7 @@ func main() {
 	})
 
 	app.POST("/sdk/create_channel_order", func(context *gin.Context) {
-		var request = new(luksdk.CreateChannelOrderRequest),
+		var request = new(luksdk.CreateChannelOrderRequest)
 		var response = new(luksdk.Response[luksdk.CreateChannelOrderResponse])
 		if err := context.ShouldBind(request); err != nil {
 			context.JSON(400, response.WithError(err))
