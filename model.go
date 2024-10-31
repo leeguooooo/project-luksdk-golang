@@ -136,24 +136,24 @@ type NotifyGameRequest struct {
 }
 
 type NotifyGameRequestStartBefore struct {
-	RoomId            int             `json:"room_id"`             // 房间id
-	RoundId           int             `json:"round_id"`            // 回合ID
+	RoomId            string          `json:"room_id"`             // 房间id
+	RoundId           string          `json:"round_id"`            // 回合ID
 	PlayerReadyStatus map[string]bool `json:"player_ready_status"` // 玩家准备状态 playerId:isReady
 	NotifyAction      Action          `json:"notify_action"`       // 游戏通知操作，具体的游戏操作 参考游戏通知操作说明
 	GameSetting       string          `json:"game_setting"`        // 游戏当前设置/具体设置信息参考对应游戏,可选项,部分游戏没有游戏设置
 }
 
 type NotifyGameRequestGaming struct {
-	RoomId       int      `json:"room_id"`       // 房间id
-	RoundId      int      `json:"round_id"`      // 回合ID
+	RoomId       string   `json:"room_id"`       // 房间id
+	RoundId      string   `json:"round_id"`      // 回合ID
 	PlayerNum    int      `json:"player_num"`    // 玩家数量
 	PlayerUids   []string `json:"player_uids"`   // 玩家uids数组
 	NotifyAction Action   `json:"notify_action"` // 游戏通知操作，具体的游戏操作 参考游戏通知操作说明
 }
 
 type NotifyGameRequestEnd struct {
-	RoomId       int      `json:"room_id"`       // 房间id
-	RoundId      int      `json:"round_id"`      // 回合ID
+	RoomId       string   `json:"room_id"`       // 房间id
+	RoundId      string   `json:"round_id"`      // 回合ID
 	Rank         []string `json:"rank"`          // 排名 playerId
 	IsForceEnd   bool     `json:"is_force_end"`  // 是否为强制结束
 	NotifyAction Action   `json:"notify_action"` // 游戏通知操作，具体的游戏操作 参考游戏通知操作说明
