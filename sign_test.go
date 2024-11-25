@@ -1,9 +1,11 @@
 package luksdk
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestSDK_VerifySignature(t *testing.T) {
-	sdk := New("fa7ad21fdbe10218024f88538a86")
+	sdk := New("fa7ad21fdbe10218024f88538a86", "https://api.luk.live")
 
 	request := &CreateChannelOrderRequest{
 		Sign: "DF32DD6C2C939FE896738F80EFF4E80B",

@@ -1,11 +1,80 @@
 package luksdk
 
-func New(signSecret string) *SDK {
-	return &SDK{signSecret: signSecret}
+import (
+	"fmt"
+	"net/http"
+	"time"
+)
+
+func New(signSecret, domain string) *SDK {
+	return &SDK{
+		signSecret: signSecret,
+		domain:     domain,
+		apiPrefix:  "/sdk",
+		httpClient: &http.Client{
+			Timeout: 10 * time.Second,
+			Transport: &http.Transport{
+				MaxIdleConns: 100,
+			},
+		},
+	}
 }
 
 type SDK struct {
 	signSecret string
+	domain     string
+	apiPrefix  string
+	httpClient *http.Client
+}
+
+// IssuanceProps 发放道具
+func (sdk *SDK) IssuanceProps(channelId, gameId int, entries []*IssuancePropsRequestEntry) error {
+	body := &IssuancePropsRequest{
+		CID:       channelId,
+		GID:       gameId,
+		Timestamp: time.Now().Unix(),
+		Data:      entries,
+	}
+	body.Sign = signature(sdk.signSecret, body)
+	response := &Response[*Empty]{}
+
+	err := request(
+		sdk.httpClient, http.MethodPost,
+		sdk.domain+sdk.apiPrefix+"/issuance_props",
+		body,
+		response,
+	)
+	if err != nil {
+		return err
+	}
+	if !response.Suc() {
+		return fmt.Errorf("get_game_service_list failed, code: %d, msg: %s", response.Code, response.Msg)
+	}
+	return nil
+}
+
+// GetGameServiceList 获取游戏列表
+func (sdk *SDK) GetGameServiceList(channelId int) (*Response[*GetGameServiceListResponse], error) {
+	body := &GetGameServiceListRequest{
+		CId:       channelId,
+		Timestamp: time.Now().Unix(),
+	}
+	body.Sign = signature(sdk.signSecret, body)
+	response := &Response[*GetGameServiceListResponse]{}
+
+	err := request(
+		sdk.httpClient, http.MethodPost,
+		sdk.domain+sdk.apiPrefix+"/get_game_service_list",
+		body,
+		response,
+	)
+	if err != nil {
+		return nil, err
+	}
+	if !response.Suc() {
+		return nil, fmt.Errorf("get_game_service_list failed, code: %d, msg: %s", response.Code, response.Msg)
+	}
+	return response, nil
 }
 
 // VerifySignature 验证签名是否正确

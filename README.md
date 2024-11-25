@@ -22,7 +22,7 @@ import (
 
 func main() {
 	// 初始化 SDK
-	sdk := luksdk.New("123456")
+	sdk := luksdk.New("123456", "https://xxx")
 
 	// 来自 SDK 请求的参数结构
 	request := &luksdk.GetChannelTokenRequest{

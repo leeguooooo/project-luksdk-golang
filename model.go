@@ -25,6 +25,38 @@ const (
 	ActionGameEnd                         // 游戏结束操作
 )
 
+type IssuancePropsRequestEntry struct {
+	CUID   string `json:"c_uid"`
+	PropID string `json:"prop_id"`
+	Expire int    `json:"expire"`
+	Num    int    `json:"num"`
+}
+
+type IssuancePropsRequest struct {
+	CID       int                          `json:"c_id"`
+	GID       int                          `json:"g_id"`
+	Timestamp int64                        `json:"timestamp"`
+	Data      []*IssuancePropsRequestEntry `json:"data"`
+	Sign      string                       `json:"sign"`
+}
+
+type GetGameServiceListRequest struct {
+	CId       int    `json:"c_id" form:"c_id" uri:"c_id" xml:"c_id"`                     // 渠道ID
+	Timestamp int64  `json:"timestamp" form:"timestamp" uri:"timestamp" xml:"timestamp"` // 时间戳
+	Sign      string `json:"sign" form:"sign" uri:"sign" xml:"sign"`                     // 加密签名
+}
+
+type GetGameServiceListResponse struct {
+	GameList []*GetGameServiceListResponseEntry `json:"game_list"`
+}
+
+type GetGameServiceListResponseEntry struct {
+	Id   int    `json:"g_id"`   // 游戏id
+	Name string `json:"g_name"` // 游戏名称
+	Icon string `json:"g_icon"` // 游戏图标
+	Url  string `json:"g_url"`  // 游戏地址
+}
+
 type GetChannelTokenRequest struct {
 	CId       int    `json:"c_id" form:"c_id" uri:"c_id" xml:"c_id"`                     // 渠道ID
 	CUid      string `json:"c_uid" form:"c_uid" uri:"c_uid" xml:"c_uid"`                 // 渠道用户id
@@ -174,6 +206,9 @@ func (req *NotifyGameRequest) GetGaming() (*NotifyGameRequestGaming, error) {
 func (req *NotifyGameRequest) GetEnd() (*NotifyGameRequestEnd, error) {
 	var data = new(NotifyGameRequestEnd)
 	return data, json.Unmarshal([]byte(req.Data), data)
+}
+
+type Empty struct {
 }
 
 type RequestHandler[Q, T any] func(request Q) (T, error)
