@@ -48,7 +48,7 @@ func (sdk *SDK) IssuanceProps(channelId, gameId int, entries []*IssuancePropsReq
 		return err
 	}
 	if !response.Suc() {
-		return fmt.Errorf("get_game_service_list failed, code: %d, msg: %s", response.Code, response.Msg)
+		return fmt.Errorf("issuance_props failed, code: %d, msg: %s", response.Code, response.Msg)
 	}
 	return nil
 }
