@@ -15,23 +15,6 @@ func main() {
 		}
 	}()
 
-	getGameServiceList, err := sdk.GetGameServiceList(1010997)
-	if err != nil {
-		panic(err)
-	}
-	slog.Info("get_game_service_list", "response", getGameServiceList)
-
-	if err = sdk.IssuanceProps(1010997, 82, []*luksdk.IssuancePropsRequestEntry{
-		{
-			CUID:   "123",
-			PropID: "1",
-			Expire: 0,
-			Num:    1,
-		},
-	}); err != nil {
-		panic(err)
-	}
-
 	app.POST("/sdk/get_channel_token", func(context *gin.Context) {
 		var request = new(luksdk.GetChannelTokenRequest)
 		var response = new(luksdk.Response[*luksdk.GetChannelTokenResponse])

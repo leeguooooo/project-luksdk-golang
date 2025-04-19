@@ -25,21 +25,6 @@ const (
 	ActionGameEnd                         // 游戏结束操作
 )
 
-type IssuancePropsRequestEntry struct {
-	CUID   string `json:"c_uid"`
-	PropID string `json:"prop_id"`
-	Expire int    `json:"expire"`
-	Num    int    `json:"num"`
-}
-
-type IssuancePropsRequest struct {
-	CID       int                          `json:"c_id"`
-	GID       int                          `json:"g_id"`
-	Timestamp int64                        `json:"timestamp"`
-	Data      []*IssuancePropsRequestEntry `json:"data"`
-	Sign      string                       `json:"sign"`
-}
-
 type GetGameServiceListRequest struct {
 	CId       int    `json:"c_id" form:"c_id" uri:"c_id" xml:"c_id"`                     // 渠道ID
 	Timestamp int64  `json:"timestamp" form:"timestamp" uri:"timestamp" xml:"timestamp"` // 时间戳

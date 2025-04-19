@@ -27,32 +27,6 @@ type SDK struct {
 	httpClient *http.Client
 }
 
-// IssuanceProps 发放道具
-func (sdk *SDK) IssuanceProps(channelId, gameId int, entries []*IssuancePropsRequestEntry) error {
-	body := &IssuancePropsRequest{
-		CID:       channelId,
-		GID:       gameId,
-		Timestamp: time.Now().Unix(),
-		Data:      entries,
-	}
-	body.Sign = signature(sdk.signSecret, body)
-	response := &Response[*Empty]{}
-
-	err := request(
-		sdk.httpClient, http.MethodPost,
-		sdk.domain+sdk.apiPrefix+"/issuance_props",
-		body,
-		response,
-	)
-	if err != nil {
-		return err
-	}
-	if !response.Suc() {
-		return fmt.Errorf("issuance_props failed, code: %d, msg: %s", response.Code, response.Msg)
-	}
-	return nil
-}
-
 // GetGameServiceList 获取游戏列表
 func (sdk *SDK) GetGameServiceList(channelId int) (*Response[*GetGameServiceListResponse], error) {
 	body := &GetGameServiceListRequest{
