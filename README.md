@@ -1,48 +1,20 @@
-# 介绍
-本项目为 Golang 版本的 LukSDK，可直接引入使用，其中提供了需接入接口的通用实现，仅需结合业务逻辑将其返回即可。
+# LukSDK for Go
 
-> 仅需将 HTTP 请求转换为对应结构体后调用相关函数并填充返回值即可，关于参数的校验等行为交由 SDK 内部处理。
+本项目为 Golang 版本的 LukSDK，提供游戏平台接入所需的数据结构定义、API 调用接口和控制事件构造工具。
 
-# Go Mod
-可通过以下方式引入依赖
+## 主要功能
 
-```shell
+- **API 接口封装**: 提供标准化的请求/响应结构体定义
+- **控制事件构造**: 使用构造器模式简化复杂事件参数的组装
+- **回调结构定义**: 提供完整的回调数据结构，供开发者自行实现业务逻辑
+- **类型安全**: 完整的 Go 类型定义，减少运行时错误
+
+## 安装
+
+```bash
 go get -u github.com/CFGameTech/project-luksdk-golang
 ```
 
-# 示例代码
-```go
-package main
+## 示例代码
 
-import (
-	"encoding/json"
-	"fmt"
-	luksdk "github.com/CFGameTech/project-luksdk-golang"
-)
-
-func main() {
-	// 初始化 SDK
-	sdk := luksdk.New("123456", "https://xxx")
-
-	// 来自 SDK 请求的参数结构
-	request := &luksdk.GetChannelTokenRequest{
-		CId:       1000,
-		CUid:      "123456789",
-		Timestamp: 167456789,
-	}
-	request.Sign = sdk.GenerateSignature(request)
-
-	// 处理请求
-	resp := sdk.GetChannelToken(request, func(request *luksdk.GetChannelTokenRequest) (*luksdk.GetChannelTokenResponse, error) {
-		// 业务逻辑
-		return &luksdk.GetChannelTokenResponse{
-			Token:    "token", // 生成 Token
-			LeftTime: 7200,    // 设置 Token 过期时间
-		}, nil
-	})
-
-	// 将 resp 作为 JSON 写入 HTTP 响应
-	b, _ := json.Marshal(resp)
-	fmt.Println(string(b))
-}
-```
+参考示例文件：[SDK 初始化和 API 调用示例](./example/main.go)
