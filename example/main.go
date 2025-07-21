@@ -14,8 +14,7 @@ import (
 func main() {
 	// 构建 LukSDK 实例
 	sdk := luksdk.NewLukSDKWithConfigurators(luksdk.ConfiguratorFN(func(config *luksdk.Config) {
-		config.WithAppId(0).
-			WithDomain("https://xxx.xxx.xx")
+		config.WithAppId(0).WithDomain("https://xxx.xxx.xx")
 	}))
 
 	// 普通请求

@@ -24,7 +24,7 @@ func (a *Apis) GetGameServiceList(req apimodels.GetGameServiceListRequest) (apim
 		req.AppId = a.client.config.AppId
 	}
 	if req.Sign == "" {
-		req.Sign = NewSignature(a.client.config.AppSecret, req)
+		req.Sign = Signature(a.client.config.AppSecret, req)
 	}
 	if req.Timestamp == nil {
 		now := time.Now().Unix()
@@ -47,7 +47,7 @@ func (a *Apis) QueryNotifyEvent(req apimodels.QueryNotifyEventRequest) (apimodel
 		req.AppId = a.client.config.AppId
 	}
 	if req.Sign == "" {
-		req.Sign = NewSignature(a.client.config.AppSecret, req)
+		req.Sign = Signature(a.client.config.AppSecret, req)
 	}
 	if req.Timestamp == nil {
 		now := time.Now().Unix()
@@ -70,7 +70,7 @@ func (a *Apis) QueryOrder(req apimodels.QueryOrderRequest) (apimodels.QueryOrder
 		req.AppId = a.client.config.AppId
 	}
 	if req.Sign == "" {
-		req.Sign = NewSignature(a.client.config.AppSecret, req)
+		req.Sign = Signature(a.client.config.AppSecret, req)
 	}
 	if req.Timestamp == nil {
 		now := time.Now().Unix()
@@ -93,7 +93,7 @@ func (a *Apis) PublishControlEvent(req apimodels.PublishControlEventRequest) (ap
 		req.AppId = a.client.config.AppId
 	}
 	if req.Sign == "" {
-		req.Sign = NewSignature(a.client.config.AppSecret, req)
+		req.Sign = Signature(a.client.config.AppSecret, req)
 	}
 	if req.Timestamp == nil {
 		now := time.Now().Unix()

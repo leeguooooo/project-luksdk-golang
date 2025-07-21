@@ -76,7 +76,7 @@ type PublishControlEventRequestChangeRoomSetting struct {
 	// 操作者用户 ID，当填写该值后将会校验操作人状态及权限是否满足
 	OpUserId *string `json:"op_user_id"`
 	// 房间设置
-	RoomSetting *string `json:"room_setting"`
+	RoomSetting string `json:"room_setting"`
 }
 
 type PublishControlEventRequestChangeUserIdentity struct {
@@ -449,7 +449,7 @@ func WithCloseOpUserId(opUserId string) func(*PublishControlEventRequestForceClo
 // ChangeRoomSetting 创建修改房间设置控制事件
 func (b *ControlEventBuilder) ChangeRoomSetting(roomSetting string, options ...func(*PublishControlEventRequestChangeRoomSetting)) (*PublishControlEventRequest, error) {
 	data := &PublishControlEventRequestChangeRoomSetting{
-		RoomSetting: &roomSetting,
+		RoomSetting: roomSetting,
 	}
 
 	for _, option := range options {

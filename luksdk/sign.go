@@ -9,8 +9,8 @@ import (
 	"strings"
 )
 
-// NewSignature 生成签名
-func NewSignature(signSecret string, params any) string {
+// Signature 生成签名
+func Signature(signSecret string, params any) string {
 	m := make(map[string]string)
 	vof := reflect.ValueOf(params)
 	tof := vof.Type()
