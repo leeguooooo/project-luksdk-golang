@@ -1,6 +1,6 @@
 # Changelog
 
-## [v1.0.1] - 2025-08-12
+## [v1.0.2] - 2025-08-12
 
 ### Fixed
 - Fixed signature generation bug for `map[string]interface{}` parameters
@@ -9,8 +9,14 @@
 
 ### Technical Details
 - The bug was in the `Signature` function which incorrectly skipped interface{} types
-- Master branch already contains the fix (commit: refactor(sign): 签名算法调整)
-- This release makes the fix available through Go modules
+- The old fix (commit 6a30238) was not migrated when refactoring to luksdk package
+- This release properly implements the signature fix in the new code structure
+
+## [v1.0.1] - 2025-08-12
+
+### Fixed (Attempted)
+- Initial attempt to fix signature generation bug
+- Note: v1.0.1 was cached with old code, use v1.0.2 instead
 
 ## [v1.0.0] - Initial Release
 
